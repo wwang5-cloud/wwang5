@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width: 800px; background: #172a34; color: white;">
         <div>
             beforeCreate:
             <br/>

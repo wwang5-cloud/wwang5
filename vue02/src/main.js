@@ -7,9 +7,15 @@ import router from './router/index'
 import ViewUI from 'view-design'
 // step2: 引入 css 
 import 'view-design/dist/styles/iview.css'
+// step3: 引入 ElementUI
+import ElementUI from 'element-ui';
+// step4: 引入 css
+import 'element-ui/lib/theme-chalk/index.css'
+
 Vue.config.productionTip = false
 // step3:声明使用 ViewUI
 Vue.use(ViewUI)
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({

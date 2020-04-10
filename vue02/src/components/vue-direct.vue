@@ -1,33 +1,25 @@
 <template>
     <div>
         <div>
-            <Menu :theme="'light'" active-name="1" mode="horizontal">
-                <MenuItem name="1" @click.native="menuItemClick('/direct/vif')">vif指令</MenuItem>
-                <MenuItem name="2" @click.native="menuItemClick('/direct/vfor')">vfor指令</MenuItem>
-            </Menu>
+            <el-tabs v-model="activeName" @tab-click="menuItemClick()">
+                <el-tab-pane name="/welcome/direct/vif" label="vif指令"></el-tab-pane>
+                <el-tab-pane name="/welcome/direct/vfor" label="vfor指令"></el-tab-pane>
+            </el-tabs>
         </div>
         <div>
             <router-view/>
         </div>
     </div>
 </template>
-<style>
-    .ivu-menu-item {
-        font-size: 12px;
-        padding: 6px 6px;
-        border: 1px solid #eeeeee;
-    }
-    .ivu-menu-horizontal {
-        height: 32px;
-        line-height: 32px;
-    }
-</style>
 <script>
 export default {
     name: 'vue-direct',
+    data: function() {
+        return {activeName: '/welcome/direct/vif'};
+    },
     methods: {
-        menuItemClick: function(url) {
-            this.$router.push(url);
+        menuItemClick: function() {
+            this.$router.push(this.activeName);
         }
     },
     created: function() {

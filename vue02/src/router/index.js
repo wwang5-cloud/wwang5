@@ -11,7 +11,6 @@ import vueevent from './../components/vue-events';
 import vueform from './../components/vue-forms';
 import vuemethod from './../components/vue-methods';
 import vueproject from './../components/vue-project';
-import vuerouter from './../components/vue-router';
 import vuebuilder from './../components/vue-builder';
 import vuepublish from './../components/vue-publish';
 import vuepackage from './../components/vue-package';
@@ -24,10 +23,14 @@ import vuetable from './../components/vue-design/table';
 import vuedesignform from './../components/vue-design/form';
 import vueif from './../components/vue-direct/vif';
 import vuefor from './../components/vue-direct/vfor';
+import baseRouter from './router';
+import elementRouter from './element';
+import main from './../main/main';
+import ui from './../element-ui/ui.js';
 
 Vue.use(Router);
 const routes = [
-  {path: '/', name: 'welcome', component: welcome, children:[
+  {path: '/welcome', name: 'welcome', component: welcome, children:[
     {path: 'fix', component: vuefix},
     {path: 'class', component: vueclass},
     {path: 'components', component: vuecomponents},
@@ -45,7 +48,6 @@ const routes = [
     {path: 'form', component: vueform},
     {path: 'method', component: vuemethod},
     {path: 'project', component: vueproject},
-    {path: 'router', component: vuerouter},
     {path: 'builder', component: vuebuilder},
     {path: 'publish', component: vuepublish},
     {path: 'package', component: vuepackage},
@@ -55,8 +57,26 @@ const routes = [
     {path: 'bom', component: vuebom}
   ]}
 ];
+routes[0].children.push(baseRouter);
+routes[0].children.push(elementRouter);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
-  routes: routes
-})
+  routes: [
+    ...main,
+    ...routes,
+    ...ui
+  ]
+});
+router.beforeEach((to, from, next) => {
+  console.log('beforeEach..................................');
+  next();
+});
+router.afterEach((to, from) => {
+  console.log('afterEach..................................');
+});
+router.beforeResolve((to, from, next) => {
+  console.log("beforeResolve..........................")
+  next();
+});
+export default router;
